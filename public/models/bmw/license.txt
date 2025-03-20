@@ -1,0 +1,8 @@
+Model Information:
+* title:	BMW i8 Liberty Walk
+* source:	https://sketchfab.com/3d-models/bmw-i8-liberty-walk-a109331f70784b749b6e842c813af854
+* author:	Wekfest™ (https://sketchfab.com/Wekfest23)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

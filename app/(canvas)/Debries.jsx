@@ -6,7 +6,7 @@ import { Mesh } from "three"
 export default function Debries() {
 	const gltf = useLoader(GLTFLoader, "/models/rocks/scene.gltf")
 	const [rocks, setRocks] = useState([])
-	const arr = new Array(100).fill(0)
+	const arr = useRef(new Array(100).fill(0))
 
 	useEffect(() => {
 		const temp = []
@@ -20,19 +20,7 @@ export default function Debries() {
 		})
 	}, [gltf])
 
-	// rotation
-	// min = .003
-	// max = .02
-
-	// scale
-	// min = .008
-	// min = .02
-
-	// position
-	// min = x y z = -4 - -5 - -3
-	// max = x y z = 22 - -1 - 22
-
-	const Rock = () => {
+	const Rock = index => {
 		if(!rocks) return
 
 		const rand = Math.floor(Math.random() * 5)
@@ -45,12 +33,25 @@ export default function Debries() {
 		const axisRotation = Math.floor(Math.random() * 7) + 1
 		const rotationAxes = ["x", "y", "z"]
 		const isNegative = [Math.random() < 0.5, Math.random() < 0.5, Math.random() < 0.5]
+		let willShrink = false
 
 		useFrame((_, delta) => {
 			if(!rockRef.current) return
 
 			if(rockRef.current.position.y <= -5) {
-				rockRef.current.position.y = -1
+				willShrink = true
+			}
+
+			if(willShrink) {
+				rockRef.current.scale.x -= .0001
+				rockRef.current.scale.y -= .0001
+				rockRef.current.scale.z -= .0001
+
+				if(rockRef.current.scale.x <= 0) {
+					rockRef.current.position.y = -1
+					rockRef.current.scale.set(.02, .02, .02)
+					willShrink = false
+				}
 			}
 
 			rockRef.current.position.y -= delta * fallSpeed
@@ -71,6 +72,6 @@ export default function Debries() {
 	}
 
 	return <>
-		{ rocks && rocks.length > 0 ? arr.map(v => <Rock />) : null }
+		{ rocks && rocks.length > 0 ? arr.current.map((v, i) => <Rock key={i} index={i} />) : null }
 	</>
 }

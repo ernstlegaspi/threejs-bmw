@@ -6,6 +6,7 @@ import { useRef } from "react"
 import Lever from "./Lever"
 import FloorCar from "./FloorCar"
 import { SpotLightHelper } from "three"
+import Debries from "./Debries"
 
 export default function CanvasPage() {
 	const Lights = () => {
@@ -47,6 +48,7 @@ export default function CanvasPage() {
 			<MainCamera />
 
 			<FloorCar />
+			<Debries />
 			<Lever />
 
 			<Lights />
